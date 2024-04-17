@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "tag")
 public class Tag {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "id_sequence")
     private Long id;
 
     @Column(name = "name", nullable = false)

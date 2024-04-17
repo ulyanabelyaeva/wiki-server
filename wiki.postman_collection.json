@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "c63900a6-9c28-41ff-8bd8-d93a6e6c5044",
+		"name": "wiki",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23191369"
+	},
+	"item": [
+		{
+			"name": "Создать корневой раздел",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Корневой раздел\",\r\n    \"createdAt\": \"2024-04-05T14:29:00+03:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8091/directory/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"directory",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Создать подраздел",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Подраздел: третий уровень\",\r\n    \"parentDirectoryId\": \"1001\",\r\n    \"createdAt\": \"2024-04-05T14:29:00+03:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8091/directory/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"directory",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получить дерево разделов",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Подраздел\",\r\n    \"parentDirectoryId\": \"1000\",\r\n    \"createdAt\": \"2024-04-05T14:29:00+03:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8091/tree/read",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"tree",
+						"read"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

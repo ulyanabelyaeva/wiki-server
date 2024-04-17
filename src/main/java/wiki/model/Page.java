@@ -4,19 +4,23 @@ import javax.persistence.*;
 import java.util.UUID;
 
 import static java.util.Objects.nonNull;
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "page")
 public class Page {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "id_sequence")
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
+
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "directory_id")
@@ -41,6 +45,14 @@ public class Page {
         this.owner = owner;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Directory getDirectory() {
         return directory;
     }
@@ -62,6 +74,8 @@ public class Page {
         Long directoryId = nonNull(directory) ? directory.getId() : null;
         return "Page{" +
                 "id=" + id +
+                ", owner.id=" + owner.getId() +
+                ", name='" + name + '\'' +
                 ", directory=" + directoryId +
                 ", sourceUUID=" + sourceUUID +
                 '}';

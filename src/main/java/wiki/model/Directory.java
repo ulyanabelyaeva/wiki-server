@@ -1,24 +1,33 @@
 package wiki.model;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
 import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "directory")
 public class Directory {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "id_sequence")
+    @SequenceGenerator(
+            name = "id_sequence",
+            initialValue = 1_000,
+            allocationSize = 1)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
+
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @JoinColumn(name = "parent_directory_id")
     @ManyToOne
@@ -29,6 +38,12 @@ public class Directory {
 
     @OneToMany(mappedBy = "directory", cascade = ALL)
     private List<Page> pages = new ArrayList<>();
+
+    @Column(name = "created_at", nullable = false)
+    private ZonedDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private ZonedDateTime updatedAt;
 
     public Long getId() {
         return id;
@@ -44,6 +59,14 @@ public class Directory {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Directory getParentDirectory() {
@@ -70,6 +93,22 @@ public class Directory {
         this.pages = pages;
     }
 
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public ZonedDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public String toString() {
         Long parentDirectoryId = nonNull(parentDirectory) ? parentDirectory.getId() : null;
@@ -79,9 +118,12 @@ public class Directory {
         return "Directory{" +
                 "id=" + id +
                 ", owner.id=" + owner.getId() +
+                ", name='" + name + '\'' +
                 ", parentDirectory.id=" + parentDirectoryId +
                 ", childDirectory.ids=" + childDirectoryIds +
                 ", pages=" + pageIds +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }
