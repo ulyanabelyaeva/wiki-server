@@ -2,11 +2,11 @@ package wiki.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import wiki.model.Directory;
+import wiki.model.User;
 
 import java.util.List;
 
 public interface DirectoryRepository extends JpaRepository<Directory, Long> {
 
-    //todo + фильтрация по пользователю
-    List<Directory> findByParentDirectoryIsNull();
+    List<Directory> findByParentDirectoryIsNullAndOwner(User owner);
 }

@@ -3,6 +3,7 @@ package wiki.service.directory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wiki.model.Directory;
+import wiki.model.User;
 import wiki.repository.DirectoryRepository;
 import wiki.service.directory.api.DirectoryStore;
 
@@ -37,7 +38,7 @@ public class DirectoryStoreImpl implements DirectoryStore {
 
     @Override
     @Transactional(propagation = MANDATORY)
-    public List<Directory> readRootDirectories() {
-        return directoryRepository.findByParentDirectoryIsNull();
+    public List<Directory> readRootDirectories(User user) {
+        return directoryRepository.findByParentDirectoryIsNullAndOwner(user);
     }
 }

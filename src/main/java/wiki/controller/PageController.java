@@ -1,0 +1,53 @@
+package wiki.controller;
+
+import org.slf4j.Logger;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import wiki.dto.page.NewPageDto;
+import wiki.dto.page.PageDto;
+import wiki.service.page.api.PageCreator;
+import wiki.service.page.api.PageMapper;
+import wiki.service.page.api.PageStore;
+
+import javax.validation.Valid;
+
+import static org.slf4j.LoggerFactory.getLogger;
+
+@RestController
+@RequestMapping("/page")
+public class PageController {
+
+    private static final Logger LOGGER = getLogger(PageController.class);
+
+    private final PageCreator pageCreator;
+    private final PageMapper pageMapper;
+    private final PageStore pageStore;
+
+    public PageController(PageCreator pageCreator,
+                          PageMapper pageMapper,
+                          PageStore pageStore) {
+        this.pageCreator = pageCreator;
+        this.pageMapper = pageMapper;
+        this.pageStore = pageStore;
+    }
+
+
+    @PostMapping("/create")
+    public ResponseEntity<PageDto> createNewPage(
+            @RequestBody
+            @Valid
+            NewPageDto request
+    ) {
+        LOGGER.info("Create PAGE requested: {}", request);
+        Long id = pageCreator.create(request);
+        PageDto response = pageStore.readPage(
+                id,
+                pageMapper::toDto
+        );
+        return ResponseEntity.ok(response);
+    }
+
+}

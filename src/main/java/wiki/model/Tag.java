@@ -1,6 +1,10 @@
 package wiki.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +29,14 @@ public class Tag {
 
     @OneToMany(mappedBy = "tag", cascade = ALL)
     private List<PageTag> pageTags = new ArrayList<>();
+
+    @CreationTimestamp
+    @Column(name = "db_created_at", updatable = false)
+    private Timestamp dbCreatedAt;
+
+    @UpdateTimestamp
+    @Column(name = "db_updated_at")
+    private Timestamp dbUpdatedAt;
 
     public Long getId() {
         return id;
@@ -56,6 +68,14 @@ public class Tag {
 
     public void setPageTags(List<PageTag> pageTags) {
         this.pageTags = pageTags;
+    }
+
+    public Timestamp getDbCreatedAt() {
+        return dbCreatedAt;
+    }
+
+    public Timestamp getDbUpdatedAt() {
+        return dbUpdatedAt;
     }
 
     @Override

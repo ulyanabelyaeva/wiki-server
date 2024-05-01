@@ -40,7 +40,7 @@ public class DirectoryController {
             @Valid
             NewDictionaryDto request
     ) {
-        LOGGER.info("Create directory requested: {}", request);
+        LOGGER.info("Create DIRECTORY requested: {}", request);
         Long id = directoryCreator.create(request);
         DirectoryDto response = directoryStore.readDirectory(
                 id,

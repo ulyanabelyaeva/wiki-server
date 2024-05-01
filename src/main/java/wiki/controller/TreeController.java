@@ -25,7 +25,7 @@ public class TreeController {
 
     @GetMapping("/read")
     public ResponseEntity<TreeDto> read() {
-        LOGGER.info("Read tree requested");
+        LOGGER.info("Read TREE requested");
         TreeDto response = treeReader.read();
         return ok(response);
     }

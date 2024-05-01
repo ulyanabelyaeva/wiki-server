@@ -1,5 +1,7 @@
 package wiki.dto.directory;
 
+import wiki.dto.page.PageDto;
+
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,7 @@ public class DirectoryDto {
     private String name;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
+    private List<PageDto> pages = new ArrayList<>();
     private List<DirectoryDto> childDirectories = new ArrayList<>();
 
     public String getId() {
@@ -44,6 +47,14 @@ public class DirectoryDto {
         this.updatedAt = updatedAt;
     }
 
+    public List<PageDto> getPages() {
+        return pages;
+    }
+
+    public void setPages(List<PageDto> pages) {
+        this.pages = pages;
+    }
+
     public List<DirectoryDto> getChildDirectories() {
         return childDirectories;
     }
@@ -59,6 +70,7 @@ public class DirectoryDto {
                 ", name='" + name + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", pages=" + pages +
                 ", childDirectories=" + childDirectories +
                 '}';
     }

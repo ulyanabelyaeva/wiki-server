@@ -1,6 +1,10 @@
 package wiki.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +48,14 @@ public class Directory {
 
     @Column(name = "updated_at", nullable = false)
     private ZonedDateTime updatedAt;
+
+    @CreationTimestamp
+    @Column(name = "db_created_at", updatable = false)
+    private Timestamp dbCreatedAt;
+
+    @UpdateTimestamp
+    @Column(name = "db_updated_at")
+    private Timestamp dbUpdatedAt;
 
     public Long getId() {
         return id;
@@ -107,6 +119,14 @@ public class Directory {
 
     public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Timestamp getDbCreatedAt() {
+        return dbCreatedAt;
+    }
+
+    public Timestamp getDbUpdatedAt() {
+        return dbUpdatedAt;
     }
 
     @Override

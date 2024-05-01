@@ -1,6 +1,7 @@
 package wiki.service.directory.api;
 
 import wiki.model.Directory;
+import wiki.model.User;
 
 import java.util.List;
 import java.util.function.Function;
@@ -12,5 +13,5 @@ public interface DirectoryStore {
     <T> T readDirectory(Long id,
                         Function<Directory, T> mapper);
 
-    List<Directory> readRootDirectories();
+    List<Directory> readRootDirectories(User user);
 }

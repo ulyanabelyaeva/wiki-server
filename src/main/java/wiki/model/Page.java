@@ -1,6 +1,11 @@
 package wiki.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 import static java.util.Objects.nonNull;
@@ -26,8 +31,25 @@ public class Page {
     @JoinColumn(name = "directory_id")
     private Directory directory;
 
-    @Column(name = "source_uuid")
-    private UUID sourceUUID = UUID.randomUUID();
+    @Column(name = "file_uuid")
+    private UUID fileUUID = UUID.randomUUID();
+
+    @Column(name = "file_path")
+    private String filePath;
+
+    @Column(name = "created_at", nullable = false)
+    private ZonedDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private ZonedDateTime updatedAt;
+
+    @CreationTimestamp
+    @Column(name = "db_created_at", updatable = false)
+    private Timestamp dbCreatedAt;
+
+    @UpdateTimestamp
+    @Column(name = "db_updated_at")
+    private Timestamp dbUpdatedAt;
 
     public Long getId() {
         return id;
@@ -61,12 +83,44 @@ public class Page {
         this.directory = directory;
     }
 
-    public UUID getSourceUUID() {
-        return sourceUUID;
+    public UUID getFileUUID() {
+        return fileUUID;
     }
 
-    public void setSourceUUID(UUID sourceUUID) {
-        this.sourceUUID = sourceUUID;
+    public void setFileUUID(UUID fileUUID) {
+        this.fileUUID = fileUUID;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public ZonedDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Timestamp getDbCreatedAt() {
+        return dbCreatedAt;
+    }
+
+    public Timestamp getDbUpdatedAt() {
+        return dbUpdatedAt;
     }
 
     @Override
@@ -77,7 +131,10 @@ public class Page {
                 ", owner.id=" + owner.getId() +
                 ", name='" + name + '\'' +
                 ", directory=" + directoryId +
-                ", sourceUUID=" + sourceUUID +
+                ", fileUUID=" + fileUUID +
+                ", filePath='" + filePath + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

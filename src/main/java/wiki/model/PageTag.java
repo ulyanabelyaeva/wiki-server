@@ -1,6 +1,11 @@
 package wiki.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+
+import java.sql.Timestamp;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -19,6 +24,14 @@ public class PageTag {
     @ManyToOne
     @JoinColumn(name = "tag_id", nullable = false)
     private Tag tag;
+
+    @CreationTimestamp
+    @Column(name = "db_created_at", updatable = false)
+    private Timestamp dbCreatedAt;
+
+    @UpdateTimestamp
+    @Column(name = "db_updated_at")
+    private Timestamp dbUpdatedAt;
 
     public Long getId() {
         return id;
@@ -42,6 +55,14 @@ public class PageTag {
 
     public void setTag(Tag tag) {
         this.tag = tag;
+    }
+
+    public Timestamp getDbCreatedAt() {
+        return dbCreatedAt;
+    }
+
+    public Timestamp getDbUpdatedAt() {
+        return dbUpdatedAt;
     }
 
     @Override
