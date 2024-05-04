@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wiki.dto.page.NewPageDto;
 import wiki.dto.page.PageDto;
+import wiki.dto.page.UpdatePageDto;
 import wiki.service.page.api.PageCreator;
 import wiki.service.page.api.PageMapper;
 import wiki.service.page.api.PageStore;
+import wiki.service.page.api.PageUpdater;
 
 import javax.validation.Valid;
 
@@ -23,13 +25,16 @@ public class PageController {
     private static final Logger LOGGER = getLogger(PageController.class);
 
     private final PageCreator pageCreator;
+    private final PageUpdater pageUpdater;
     private final PageMapper pageMapper;
     private final PageStore pageStore;
 
     public PageController(PageCreator pageCreator,
+                          PageUpdater pageUpdater,
                           PageMapper pageMapper,
                           PageStore pageStore) {
         this.pageCreator = pageCreator;
+        this.pageUpdater = pageUpdater;
         this.pageMapper = pageMapper;
         this.pageStore = pageStore;
     }
@@ -45,6 +50,21 @@ public class PageController {
         Long id = pageCreator.create(request);
         PageDto response = pageStore.readPage(
                 id,
+                pageMapper::toDto
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<PageDto> updatePage(
+            @RequestBody
+            @Valid
+            UpdatePageDto request
+    ) {
+        LOGGER.info("Update PAGE requested: {}", request);
+        pageUpdater.update(request);
+        PageDto response = pageStore.readPage(
+                Long.parseLong(request.getId()),
                 pageMapper::toDto
         );
         return ResponseEntity.ok(response);
