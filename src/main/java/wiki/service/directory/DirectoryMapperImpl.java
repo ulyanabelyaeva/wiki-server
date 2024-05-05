@@ -5,9 +5,11 @@ import org.springframework.transaction.annotation.Transactional;
 import wiki.dto.directory.DirectoryDto;
 import wiki.dto.page.PageDto;
 import wiki.model.Directory;
+import wiki.model.Page;
 import wiki.service.directory.api.DirectoryMapper;
 import wiki.service.page.api.PageMapper;
 
+import java.util.Comparator;
 import java.util.List;
 
 import static org.springframework.transaction.annotation.Propagation.MANDATORY;
@@ -37,13 +39,18 @@ public class DirectoryMapperImpl implements DirectoryMapper {
         dto.setCreatedAt(directory.getCreatedAt());
         dto.setUpdatedAt(directory.getUpdatedAt());
         List<PageDto> pageDtoList = directory.getPages().stream()
+                .sorted(Comparator.comparing(Page::getId))
                 .map(pageMapper::toDto)
                 .toList();
         dto.setPages(pageDtoList);
         if (directory.getChildDirectories().isEmpty()) {
             return;
         }
-        for (Directory childDirectory : directory.getChildDirectories()) {
+        List<Directory> sortedChildDirectories = directory.getChildDirectories()
+                .stream()
+                .sorted(Comparator.comparing(Directory::getId))
+                .toList();
+        for (Directory childDirectory : sortedChildDirectories) {
             DirectoryDto childDto = new DirectoryDto();
             dto.getChildDirectories().add(childDto);
             this.createDtoRecursive(childDirectory, childDto);

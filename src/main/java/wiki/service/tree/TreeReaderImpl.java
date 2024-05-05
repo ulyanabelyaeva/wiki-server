@@ -15,6 +15,7 @@ import wiki.service.page.api.PageStore;
 import wiki.service.tree.api.TreeReader;
 import wiki.service.user.api.UserService;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -45,9 +46,11 @@ public class TreeReaderImpl implements TreeReader {
         List<Directory> rootDirectories = directoryStore.readRootDirectories(owner);
         List<Page> pages = pageStore.readRootPages(owner);
         List<DirectoryDto> directoryDtoList = rootDirectories.stream()
+                .sorted(Comparator.comparing(Directory::getId))
                 .map(directoryMapper::toDto)
                 .toList();
         List<PageDto> pageDtoList = pages.stream()
+                .sorted(Comparator.comparing(Page::getId))
                 .map(pageMapper::toDto)
                 .toList();
         TreeDto response = new TreeDto();
