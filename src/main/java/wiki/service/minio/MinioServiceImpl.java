@@ -32,21 +32,13 @@ public class MinioServiceImpl implements MinioService {
 
     @Override
     public void createFile(UUID uuid) {
-        try {
-            String content = minioProperties.getInitialContent();
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(content.getBytes());
-            minioClient.putObject(
-                    PutObjectArgs.builder()
-                            .bucket(minioProperties.getBucket())
-                            .object(this.getPath(uuid))
-                            .stream(inputStream, content.length(), minioProperties.getPartSize())
-                            .contentType("text/html")
-                            .build());
+        String content = minioProperties.getInitialContent();
+        this.put(uuid, content);
+    }
 
-            LOGGER.info("File is successfully uploaded to bucket");
-        } catch (MinioException | IOException | NoSuchAlgorithmException | InvalidKeyException e) {
-            throw new IllegalStateException("Error when saving file to bucket");
-        }
+    @Override
+    public void updateFile(UUID uuid, String content) {
+        this.put(uuid, content);
     }
 
     @Override
@@ -60,6 +52,23 @@ public class MinioServiceImpl implements MinioService {
             return this.readToString(stream);
         } catch (Exception e) {
             throw new IllegalStateException("Error when get file by: " + this.getPath(uuid), e);
+        }
+    }
+
+    private void put(UUID uuid, String content) {
+        try {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(content.getBytes());
+            minioClient.putObject(
+                    PutObjectArgs.builder()
+                            .bucket(minioProperties.getBucket())
+                            .object(this.getPath(uuid))
+                            .stream(inputStream, content.length(), minioProperties.getPartSize())
+                            .contentType("text/html")
+                            .build());
+
+            LOGGER.info("File is successfully uploaded to bucket");
+        } catch (MinioException | IOException | NoSuchAlgorithmException | InvalidKeyException e) {
+            throw new IllegalStateException("Error when saving file to bucket");
         }
     }
 

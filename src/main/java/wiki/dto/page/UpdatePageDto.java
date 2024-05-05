@@ -8,6 +8,7 @@ public class UpdatePageDto {
     @NotNull
     private String id;
     private String name;
+    private String content;
     @NotNull
     private ZonedDateTime updatedAt;
 
@@ -27,6 +28,14 @@ public class UpdatePageDto {
         this.name = name;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -40,6 +49,7 @@ public class UpdatePageDto {
         return "UpdatePageDto{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
+                ", content='" + content + '\'' +
                 ", updatedAt=" + updatedAt +
                 '}';
     }
