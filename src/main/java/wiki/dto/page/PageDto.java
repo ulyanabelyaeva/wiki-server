@@ -8,7 +8,6 @@ public class PageDto {
     private String id;
     private String name;
     private UUID fileUUID;
-    private String filePath;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
 
@@ -36,14 +35,6 @@ public class PageDto {
         this.fileUUID = fileUUID;
     }
 
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
     public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
@@ -66,7 +57,6 @@ public class PageDto {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", fileUUID=" + fileUUID +
-                ", filePath='" + filePath + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

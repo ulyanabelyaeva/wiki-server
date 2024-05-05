@@ -34,9 +34,6 @@ public class Page {
     @Column(name = "file_uuid")
     private UUID fileUUID = UUID.randomUUID();
 
-    @Column(name = "file_path")
-    private String filePath;
-
     @Column(name = "created_at", nullable = false)
     private ZonedDateTime createdAt;
 
@@ -91,14 +88,6 @@ public class Page {
         this.fileUUID = fileUUID;
     }
 
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
     public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
@@ -132,7 +121,6 @@ public class Page {
                 ", name='" + name + '\'' +
                 ", directory=" + directoryId +
                 ", fileUUID=" + fileUUID +
-                ", filePath='" + filePath + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

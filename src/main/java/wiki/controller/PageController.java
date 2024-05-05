@@ -2,19 +2,19 @@ package wiki.controller;
 
 import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import wiki.dto.page.NewPageDto;
 import wiki.dto.page.PageDto;
 import wiki.dto.page.UpdatePageDto;
+import wiki.service.minio.api.MinioService;
 import wiki.service.page.api.PageCreator;
 import wiki.service.page.api.PageMapper;
 import wiki.service.page.api.PageStore;
 import wiki.service.page.api.PageUpdater;
 
 import javax.validation.Valid;
+
+import java.util.UUID;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -24,15 +24,18 @@ public class PageController {
 
     private static final Logger LOGGER = getLogger(PageController.class);
 
+    private final MinioService minioService;
     private final PageCreator pageCreator;
     private final PageUpdater pageUpdater;
     private final PageMapper pageMapper;
     private final PageStore pageStore;
 
-    public PageController(PageCreator pageCreator,
+    public PageController(MinioService minioService,
+                          PageCreator pageCreator,
                           PageUpdater pageUpdater,
                           PageMapper pageMapper,
                           PageStore pageStore) {
+        this.minioService = minioService;
         this.pageCreator = pageCreator;
         this.pageUpdater = pageUpdater;
         this.pageMapper = pageMapper;
@@ -70,4 +73,10 @@ public class PageController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/read-content/{uuid}")
+    public ResponseEntity<String> readPageContent(@PathVariable("uuid") UUID uuid) {
+        LOGGER.info("Read PAGE CONTENT requested: {}", uuid);
+        String content = minioService.getContent(uuid);
+        return ResponseEntity.ok(content);
+    }
 }

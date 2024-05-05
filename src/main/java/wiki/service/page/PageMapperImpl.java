@@ -17,7 +17,6 @@ public class PageMapperImpl implements PageMapper {
         PageDto pageDto = new PageDto();
         pageDto.setId(String.valueOf(page.getId()));
         pageDto.setName(page.getName());
-        pageDto.setFilePath(page.getFilePath());
         pageDto.setFileUUID(page.getFileUUID());
         pageDto.setCreatedAt(page.getCreatedAt());
         pageDto.setUpdatedAt(page.getUpdatedAt());

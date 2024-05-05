@@ -6,6 +6,7 @@ import wiki.dto.page.NewPageDto;
 import wiki.model.Directory;
 import wiki.model.Page;
 import wiki.service.directory.api.DirectoryStore;
+import wiki.service.minio.api.MinioService;
 import wiki.service.page.api.PageCreator;
 import wiki.service.page.api.PageStore;
 import wiki.service.user.api.UserService;
@@ -18,13 +19,16 @@ import static java.util.Objects.isNull;
 public class PageCreatorImpl implements PageCreator {
 
     private final DirectoryStore directoryStore;
+    private final MinioService minioService;
     private final UserService userService;
     private final PageStore pageStore;
 
     public PageCreatorImpl(DirectoryStore directoryStore,
+                           MinioService minioService,
                            UserService userService,
                            PageStore pageStore) {
         this.directoryStore = directoryStore;
+        this.minioService = minioService;
         this.userService = userService;
         this.pageStore = pageStore;
     }
@@ -40,7 +44,7 @@ public class PageCreatorImpl implements PageCreator {
     }
 
     private Long createRootPage(NewPageDto request) {
-        Page page = createModel(request);
+        Page page = this.createCommon(request);
         pageStore.savePage(page);
         return page.getId();
     }
@@ -50,18 +54,20 @@ public class PageCreatorImpl implements PageCreator {
                 Long.parseLong(request.getDirectoryId()),
                 Function.identity());
 
-        Page page = createModel(request);
+        Page page = this.createCommon(request);
         page.setDirectory(directory);
         pageStore.savePage(page);
         return page.getId();
     }
 
-    private Page createModel(NewPageDto request) {
+    private Page createCommon(NewPageDto request) {
         Page page = new Page();
         page.setOwner(userService.getCurrentUser());
         page.setName(request.getName());
         page.setCreatedAt(request.getCreatedAt());
         page.setUpdatedAt(request.getCreatedAt());
+
+        minioService.createFile(page.getFileUUID());
         return page;
     }
 }

@@ -3,7 +3,7 @@ server:
 
 spring:
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: update
   datasource:
@@ -11,3 +11,10 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: root
+minio:
+  endpoint: http://localhost:9004
+  bucket: wiki
+  access-key: minioadmin
+  secret-key: minioadmin
+  partSize: 5242880
+  initial-content: <p></p>
