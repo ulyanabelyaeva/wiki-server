@@ -79,4 +79,15 @@ public class PageController {
         String content = minioService.getContent(uuid);
         return ResponseEntity.ok(content);
     }
+
+    @GetMapping("/read/{id}")
+    public ResponseEntity<PageDto> readPageContent(@PathVariable("id") String id) {
+        LOGGER.info("Read PAGE requested: {}", id);
+        long pageId = Long.parseLong(id);
+        PageDto response = pageStore.readPage(
+                pageId,
+                pageMapper::toDto
+        );
+        return ResponseEntity.ok(response);
+    }
 }
