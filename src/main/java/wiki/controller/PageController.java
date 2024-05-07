@@ -100,13 +100,15 @@ public class PageController {
 
     @GetMapping("/create-pdf/{uuid}")
     public ResponseEntity<Resource> createPdf(@PathVariable("uuid") UUID uuid){
+        LOGGER.info("Create PDF requested: {}", uuid);
         String title = pdfCreator.getTitle(uuid);
         String content = minioService.getContent(uuid);
         Resource resource = pdfCreator.create(title, content);
+        String fileName = uuid.toString()+".pdf";
         return ResponseEntity
                 .ok()
                 .header("Content-Disposition", "attachment; " +
-                        "filename=" + encode(uuid.toString(), UTF_8))
+                        "filename=" + encode(fileName, UTF_8))
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(resource);
     }

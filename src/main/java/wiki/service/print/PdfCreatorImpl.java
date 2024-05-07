@@ -17,7 +17,7 @@ import static java.util.function.Function.identity;
 @Service
 public class PdfCreatorImpl implements PdfCreator {
 
-    public static final String TITLE_TEMPLATE = "<div style='text-align: center;'><h3> %s </h3></div>";
+    public static final String TITLE_TEMPLATE = "<div style='text-align: center;'><h2> %s </h2></div>";
     
     private final PageStore pageStore;
 
