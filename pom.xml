@@ -46,6 +46,12 @@
             <artifactId>minio</artifactId>
             <version>8.5.7</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>html2pdf</artifactId>
+            <version>5.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -8,6 +8,7 @@ import wiki.repository.PageRepository;
 import wiki.service.page.api.PageStore;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Function;
 
 import static org.springframework.transaction.annotation.Propagation.MANDATORY;
@@ -33,6 +34,15 @@ public class PageStoreImpl implements PageStore {
                           Function<Page, T> mapper) {
         Page page = pageRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Page not found by id"));
+        return mapper.apply(page);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public <T> T readPage(UUID uuid,
+                          Function<Page, T> mapper) {
+        Page page = pageRepository.findByFileUUID(uuid)
+                .orElseThrow(() -> new IllegalArgumentException("Page not found by uuid"));
         return mapper.apply(page);
     }
 
