@@ -13,7 +13,7 @@ import wiki.service.directory.api.DirectoryStore;
 import wiki.service.page.api.PageMapper;
 import wiki.service.page.api.PageStore;
 import wiki.service.tree.api.TreeReader;
-import wiki.service.user.api.UserService;
+import wiki.service.user.api.AuthService;
 
 import java.util.Comparator;
 import java.util.List;
@@ -23,18 +23,18 @@ public class TreeReaderImpl implements TreeReader {
 
     private final DirectoryMapper directoryMapper;
     private final DirectoryStore directoryStore;
-    private final UserService userService;
+    private final AuthService authService;
     private final PageMapper pageMapper;
     private final PageStore pageStore;
 
     public TreeReaderImpl(DirectoryMapper directoryMapper,
                           DirectoryStore directoryStore,
-                          UserService userService,
+                          AuthService authService,
                           PageMapper pageMapper,
                           PageStore pageStore) {
         this.directoryMapper = directoryMapper;
         this.directoryStore = directoryStore;
-        this.userService = userService;
+        this.authService = authService;
         this.pageMapper = pageMapper;
         this.pageStore = pageStore;
     }
@@ -42,7 +42,7 @@ public class TreeReaderImpl implements TreeReader {
     @Override
     @Transactional(readOnly = true)
     public TreeDto read() {
-        User owner = userService.getCurrentUser();
+        User owner = authService.getCurrentUser();
         List<Directory> rootDirectories = directoryStore.readRootDirectories(owner);
         List<Page> pages = pageStore.readRootPages(owner);
         List<DirectoryDto> directoryDtoList = rootDirectories.stream()

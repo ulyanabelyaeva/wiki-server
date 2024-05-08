@@ -9,7 +9,7 @@ import wiki.service.directory.api.DirectoryStore;
 import wiki.service.minio.api.MinioService;
 import wiki.service.page.api.PageCreator;
 import wiki.service.page.api.PageStore;
-import wiki.service.user.api.UserService;
+import wiki.service.user.api.AuthService;
 
 import java.util.function.Function;
 
@@ -20,16 +20,16 @@ public class PageCreatorImpl implements PageCreator {
 
     private final DirectoryStore directoryStore;
     private final MinioService minioService;
-    private final UserService userService;
+    private final AuthService authService;
     private final PageStore pageStore;
 
     public PageCreatorImpl(DirectoryStore directoryStore,
                            MinioService minioService,
-                           UserService userService,
+                           AuthService authService,
                            PageStore pageStore) {
         this.directoryStore = directoryStore;
         this.minioService = minioService;
-        this.userService = userService;
+        this.authService = authService;
         this.pageStore = pageStore;
     }
 
@@ -62,7 +62,7 @@ public class PageCreatorImpl implements PageCreator {
 
     private Page createCommon(NewPageDto request) {
         Page page = new Page();
-        page.setOwner(userService.getCurrentUser());
+        page.setOwner(authService.getCurrentUser());
         page.setName(request.getName());
         page.setCreatedAt(request.getCreatedAt());
         page.setUpdatedAt(request.getCreatedAt());

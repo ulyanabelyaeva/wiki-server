@@ -18,3 +18,7 @@ minio:
   secret-key: minioadmin
   partSize: 5242880
   initial-content: <p></p>
+
+jwt:
+  token:
+    secret: jwtoken
