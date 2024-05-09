@@ -62,7 +62,7 @@ public class MinioServiceImpl implements MinioService {
                     PutObjectArgs.builder()
                             .bucket(minioProperties.getBucket())
                             .object(this.getPath(uuid))
-                            .stream(inputStream, content.length(), minioProperties.getPartSize())
+                            .stream(inputStream, -1, minioProperties.getPartSize())
                             .contentType("text/html")
                             .build());
 
