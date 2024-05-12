@@ -1,6 +1,7 @@
 package wiki.service.page.api;
 
 import wiki.model.Page;
+import wiki.model.PageTag;
 import wiki.model.User;
 
 import java.util.List;
@@ -18,4 +19,10 @@ public interface PageStore {
                    Function<Page, T> mapper);
 
     List<Page> readRootPages(User user);
+
+    List<PageTag> readTagRelations(Page page);
+
+    void savePageTags(List<PageTag> tagRelations);
+
+    void deletePageTags(List<PageTag> tagRelations);
 }

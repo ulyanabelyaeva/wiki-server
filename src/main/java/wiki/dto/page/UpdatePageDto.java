@@ -2,6 +2,8 @@ package wiki.dto.page;
 
 import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UpdatePageDto {
 
@@ -11,6 +13,7 @@ public class UpdatePageDto {
     private String content;
     @NotNull
     private ZonedDateTime updatedAt;
+    private List<String> tagIds = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -44,6 +47,14 @@ public class UpdatePageDto {
         this.updatedAt = updatedAt;
     }
 
+    public List<String> getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(List<String> tagIds) {
+        this.tagIds = tagIds;
+    }
+
     @Override
     public String toString() {
         return "UpdatePageDto{" +
@@ -51,6 +62,7 @@ public class UpdatePageDto {
                 ", name='" + name + '\'' +
                 ", content='" + content + '\'' +
                 ", updatedAt=" + updatedAt +
+                ", tagIds=" + tagIds +
                 '}';
     }
 }

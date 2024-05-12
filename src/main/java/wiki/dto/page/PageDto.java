@@ -5,11 +5,11 @@ import java.util.UUID;
 
 public class PageDto {
 
-    private String id;
-    private String name;
-    private UUID fileUUID;
-    private ZonedDateTime createdAt;
-    private ZonedDateTime updatedAt;
+    protected String id;
+    protected String name;
+    protected UUID fileUUID;
+    protected ZonedDateTime createdAt;
+    protected ZonedDateTime updatedAt;
 
     public String getId() {
         return id;

@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wiki.dto.page.NewPageDto;
+import wiki.dto.page.PageAdvancedDto;
 import wiki.dto.page.PageDto;
 import wiki.dto.page.UpdatePageDto;
 import wiki.service.minio.api.MinioService;
@@ -66,29 +67,34 @@ public class PageController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<PageDto> updatePage(
+    public ResponseEntity<PageAdvancedDto> updatePage(
             @RequestBody
             @Valid
             UpdatePageDto request
     ) {
         LOGGER.info("Update PAGE requested: {}", request);
         pageUpdater.update(request);
-        PageDto response = pageStore.readPage(
+        PageAdvancedDto response = pageStore.readPage(
                 Long.parseLong(request.getId()),
-                pageMapper::toDto
+                pageMapper::toAdvancedDto
         );
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/read-content/{uuid}")
-    public ResponseEntity<String> readPageContent(@PathVariable("uuid") UUID uuid) {
-        LOGGER.info("Read PAGE CONTENT requested: {}", uuid);
+    @GetMapping("/read-advanced/{uuid}")
+    public ResponseEntity<PageAdvancedDto> readPageAdvanced(@PathVariable("uuid") UUID uuid) {
+        LOGGER.info("Read Advanced PAGE requested: {}", uuid);
         String content = minioService.getContent(uuid);
-        return ResponseEntity.ok(content);
+        PageAdvancedDto response = pageStore.readPage(
+                uuid,
+                pageMapper::toAdvancedDto
+        );
+        response.setContent(content);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/read/{id}")
-    public ResponseEntity<PageDto> readPageContent(@PathVariable("id") String id) {
+    public ResponseEntity<PageDto> readPage(@PathVariable("id") String id) {
         LOGGER.info("Read PAGE requested: {}", id);
         long pageId = Long.parseLong(id);
         PageDto response = pageStore.readPage(

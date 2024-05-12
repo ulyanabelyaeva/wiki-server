@@ -169,10 +169,16 @@
 					"name": "Обновить страницу",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1bHlhbmEifQ.7m1_MXdRBZG9CDHdTVCAd4sEpuMpraTeT0kDUx15mww",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"1029\",\r\n    \"name\": \"Страница для страданий\",\r\n    \"content\": \"<p>HELLO</p>\",\r\n    \"updatedAt\": \"2024-05-05T22:39:00+03:00\"\r\n}",
+							"raw": "{\r\n    \"id\": \"1029\",\r\n    \"name\": \"Страница для страданий\",\r\n    \"content\": \"<p>HELLO </p>\\n\",\r\n    \"updatedAt\": \"2024-05-05T22:39:00+03:00\",\r\n    \"tagIds\": [\r\n        \"1074\"\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -228,24 +234,18 @@
 					"response": []
 				},
 				{
-					"name": "Получить контент страницы",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "Получить всю инф по странице",
 					"request": {
 						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Подраздел\",\r\n    \"parentDirectoryId\": \"1000\",\r\n    \"createdAt\": \"2024-04-05T14:29:00+03:00\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1bHlhbmEifQ.7m1_MXdRBZG9CDHdTVCAd4sEpuMpraTeT0kDUx15mww",
+								"type": "text"
 							}
-						},
+						],
 						"url": {
-							"raw": "http://localhost:8091/page/read-content/34522161-ef5c-4254-a3f9-78281ff03370",
+							"raw": "http://localhost:8091/page/read-advanced/34522161-ef5c-4254-a3f9-78281ff03370",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -253,7 +253,7 @@
 							"port": "8091",
 							"path": [
 								"page",
-								"read-content",
+								"read-advanced",
 								"34522161-ef5c-4254-a3f9-78281ff03370"
 							]
 						}
@@ -385,7 +385,69 @@
 		},
 		{
 			"name": "tag",
-			"item": []
+			"item": [
+				{
+					"name": "Создать тег",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1bHlhbmEifQ.7m1_MXdRBZG9CDHdTVCAd4sEpuMpraTeT0kDUx15mww",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Тег2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8091/tag/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"tag",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получить теги пользователя",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1bHlhbmEifQ.7m1_MXdRBZG9CDHdTVCAd4sEpuMpraTeT0kDUx15mww",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8091/tag/read",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"tag",
+								"read"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
