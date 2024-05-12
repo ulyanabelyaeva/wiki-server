@@ -7,94 +7,385 @@
 	},
 	"item": [
 		{
-			"name": "Создать корневой раздел",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Корневой раздел\",\r\n    \"createdAt\": \"2024-04-05T14:29:00+03:00\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "directory",
+			"item": [
+				{
+					"name": "Создать корневой раздел",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1bHlhbmEifQ.7m1_MXdRBZG9CDHdTVCAd4sEpuMpraTeT0kDUx15mww",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Корневой раздел\",\r\n    \"createdAt\": \"2024-04-09T00:06:00+03:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8091/directory/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"directory",
+								"create"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8091/directory/create",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8091",
-					"path": [
-						"directory",
-						"create"
-					]
+				{
+					"name": "Создать подраздел",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Подраздел: третий уровень\",\r\n    \"parentDirectoryId\": \"1001\",\r\n    \"createdAt\": \"2024-04-05T14:29:00+03:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8091/directory/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"directory",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Обновить название раздела",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"1003\",\r\n    \"name\": \"Подраздел для мук\",\r\n    \"updatedAt\": \"2024-05-05T00:31:00+03:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8091/directory/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"directory",
+								"update"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Создать подраздел",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Подраздел: третий уровень\",\r\n    \"parentDirectoryId\": \"1001\",\r\n    \"createdAt\": \"2024-04-05T14:29:00+03:00\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "page",
+			"item": [
+				{
+					"name": "Создать корневую страницу",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Корневая страница\",\r\n    \"createdAt\": \"2024-05-01T22:36:00+03:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8091/page/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"page",
+								"create"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8091/directory/create",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8091",
-					"path": [
-						"directory",
-						"create"
-					]
+				{
+					"name": "Создать страницу",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Страница\",\r\n    \"directoryId\": \"1002\",\r\n    \"createdAt\": \"2024-05-01T22:41:00+03:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8091/page/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"page",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Обновить страницу",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"1029\",\r\n    \"name\": \"Страница для страданий\",\r\n    \"content\": \"<p>HELLO</p>\",\r\n    \"updatedAt\": \"2024-05-05T22:39:00+03:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8091/page/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"page",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Прочитать страницу",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Подраздел\",\r\n    \"parentDirectoryId\": \"1000\",\r\n    \"createdAt\": \"2024-04-05T14:29:00+03:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8091/page/read/1033",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"page",
+								"read",
+								"1033"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получить контент страницы",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Подраздел\",\r\n    \"parentDirectoryId\": \"1000\",\r\n    \"createdAt\": \"2024-04-05T14:29:00+03:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8091/page/read-content/34522161-ef5c-4254-a3f9-78281ff03370",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"page",
+								"read-content",
+								"34522161-ef5c-4254-a3f9-78281ff03370"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создать PDF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8091/page/create-pdf/e9727645-048d-4fae-b459-313a1a3a3482",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"page",
+								"create-pdf",
+								"e9727645-048d-4fae-b459-313a1a3a3482"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Получить дерево разделов",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Подраздел\",\r\n    \"parentDirectoryId\": \"1000\",\r\n    \"createdAt\": \"2024-04-05T14:29:00+03:00\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "tree",
+			"item": [
+				{
+					"name": "Получить дерево разделов",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Подраздел\",\r\n    \"parentDirectoryId\": \"1000\",\r\n    \"createdAt\": \"2024-04-05T14:29:00+03:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8091/tree/read",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"tree",
+								"read"
+							]
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8091/tree/read",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8091",
-					"path": [
-						"tree",
-						"read"
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Создать пользователя",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"ulyana\",\r\n    \"password\": \"ulyana\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8091/user/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Логин",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"ulyana\",\r\n    \"password\": \"ulyana\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8091/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tag",
+			"item": []
 		}
 	]
 }
