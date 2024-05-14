@@ -52,7 +52,7 @@ public class TagController {
 
     @GetMapping("/read")
     public ResponseEntity<List<TagDto>> readTags() {
-        LOGGER.info("Create user TAGs requested");
+        LOGGER.info("Read user TAGs requested");
         List<TagDto> response = tagReader.readTags();
         return ResponseEntity.ok(response);
     }
