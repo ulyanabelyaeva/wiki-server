@@ -1,0 +1,24 @@
+server:
+  port: 8091
+
+spring:
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://postgresql:5432/wiki_server
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: root
+minio:
+  endpoint: http://s3:9000
+  bucket: wiki
+  access-key: minioadmin
+  secret-key: minioadmin
+  partSize: 5242880
+  initial-content: <p></p>
+
+jwt:
+  token:
+    secret: jwtoken

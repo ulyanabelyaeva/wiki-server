@@ -65,14 +65,16 @@
     </dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${sprign.parent.version}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>wiki.WikiServerApplication</mainClass>
+                    <layout>JAR</layout>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>

@@ -18,6 +18,10 @@ public class Page {
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "id_sequence")
+    @SequenceGenerator(
+            name = "id_sequence",
+            initialValue = 1_000,
+            allocationSize = 1)
     private Long id;
 
     @ManyToOne
