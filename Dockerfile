@@ -5,4 +5,4 @@ RUN mvn -f /app/pom.xml clean package
 
 FROM openjdk:17-slim-buster
 COPY --from=build /app/target/wiki-server.jar /
-ENTRYPOINT ["java", "-Dspring.profiles.active=remote", "-jar", "wiki-server.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=remote", "-DskipTests", "-jar", "wiki-server.jar"]
